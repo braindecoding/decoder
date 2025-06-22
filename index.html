@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decoder Architecture Figure</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .figure-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .figure-title {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .figure-caption {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+        
+        .architecture-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+        }
+        
+        .layer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .layer-box {
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 15px 10px;
+            margin: 5px;
+            text-align: center;
+            background: linear-gradient(135deg, #e8f4fd 0%, #d1e7dd 100%);
+            min-width: 80px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .input-layer { background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border-color: #f39c12; }
+        .hidden-layer-1 { background: linear-gradient(135deg, #e8f4fd 0%, #74b9ff 100%); border-color: #3498db; }
+        .hidden-layer-2 { background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); border-color: #e17055; }
+        .hidden-layer-3 { background: linear-gradient(135deg, #e8f4fd 0%, #74b9ff 100%); border-color: #3498db; }
+        .output-layer { background: linear-gradient(135deg, #d1f2eb 0%, #00b894 100%); border-color: #00b894; }
+        
+        .layer-components {
+            font-size: 9px;
+            color: #555;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .arrow {
+            font-size: 24px;
+            color: #666;
+            margin: 0 10px;
+        }
+        
+        .dimension-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 8px;
+        }
+        
+        .specs-table {
+            margin: 30px 0;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .specs-table th, .specs-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+        }
+        
+        .specs-table th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .specs-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .mathematical-formula {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .formula-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .parameter-count {
+            background: #e8f4fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 12px;
+        }
+        
+        .parameter-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .image-output {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .pixel-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 12px);
+            grid-template-rows: repeat(8, 12px);
+            gap: 1px;
+            border: 2px solid #666;
+            padding: 4px;
+            background: #f0f0f0;
+        }
+        
+        .pixel {
+            background: #333;
+            border-radius: 1px;
+        }
+        
+        .pixel:nth-child(odd) { background: #666; }
+        .pixel:nth-child(4n) { background: #999; }
+    </style>
+</head>
+<body>
+    <div class="figure-container">
+        <div class="figure-title">
+            Figure 1: Neural Decoder Architecture for EEG-to-Image Reconstruction
+        </div>
+        
+        <div class="figure-caption">
+            The decoder employs a multi-layer perceptron with bottleneck architecture to transform 512-dimensional EEG embeddings 
+            into 28×28 pixel reconstructions. Each hidden layer incorporates ReLU activation, dropout regularization (p=0.2), 
+            and batch normalization for stable training dynamics.
+        </div>
+        
+        <div class="architecture-diagram">
+            <div class="layer">
+                <div class="layer-box input-layer">
+                    <strong>Input Layer</strong><br>
+                    EEG Embeddings
+                </div>
+                <div class="dimension-label">512D</div>
+                <div class="layer-components">
+                    Enhanced Transformer<br>Features
+                </div>
+            </div>
+            
+            <div class="arrow">→</div>
+            
+            <div class="layer">
+                <div class="layer-box hidden-layer-1">
+                    <strong>Hidden Layer 1</strong><br>
+                    Linear + ReLU
+                </div>
+                <div class="dimension-label">1024D</div>
+                <div class="layer-components">
+                    Dropout (0.2)<br>BatchNorm1D
+                </div>
+            </div>
+            
+            <div class="arrow">→</div>
+            
+            <div class="layer">
+                <div class="layer-box hidden-layer-2">
+                    <strong>Hidden Layer 2</strong><br>
+                    Linear + ReLU
+                </div>
+                <div class="dimension-label">2048D</div>
+                <div class="layer-components">
+                    Dropout (0.2)<br>BatchNorm1D<br><em>(Bottleneck)</em>
+                </div>
+            </div>
+            
+            <div class="arrow">→</div>
+            
+            <div class="layer">
+                <div class="layer-box hidden-layer-3">
+                    <strong>Hidden Layer 3</strong><br>
+                    Linear + ReLU
+                </div>
+                <div class="dimension-label">1024D</div>
+                <div class="layer-components">
+                    Dropout (0.2)<br>BatchNorm1D
+                </div>
+            </div>
+            
+            <div class="arrow">→</div>
+            
+            <div class="layer">
+                <div class="layer-box output-layer">
+                    <strong>Output Layer</strong><br>
+                    Linear + Tanh
+                </div>
+                <div class="dimension-label">784D</div>
+                <div class="layer-components">
+                    Reshape to<br>28×28 Image
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-output">
+            <div style="text-align: center;">
+                <div style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">Reconstructed Image Output (28×28)</div>
+                <div class="pixel-grid">
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+                </div>
+                <div style="font-size: 10px; color: #666; margin-top: 5px;">Pixel values ∈ [-1, 1]</div>
+            </div>
+        </div>
+        
+        <div class="mathematical-formula">
+            <div class="formula-title">Mathematical Formulation:</div>
+            <div>
+                h₁ = BatchNorm(Dropout(ReLU(W₁e + b₁)))<br>
+                h₂ = BatchNorm(Dropout(ReLU(W₂h₁ + b₂)))<br>
+                h₃ = BatchNorm(Dropout(ReLU(W₃h₂ + b₃)))<br>
+                y = tanh(W₄h₃ + b₄)<br><br>
+                <strong>Loss Function:</strong> L(θ) = (1/N) Σᵢ₌₁ᴺ ||yᵢ - ŷᵢ||₂²
+            </div>
+        </div>
+        
+        <table class="specs-table">
+            <thead>
+                <tr>
+                    <th>Layer</th>
+                    <th>Input Dimension</th>
+                    <th>Output Dimension</th>
+                    <th>Parameters</th>
+                    <th>Activation</th>
+                    <th>Regularization</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Input</strong></td>
+                    <td>512</td>
+                    <td>512</td>
+                    <td>0</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><strong>Hidden 1</strong></td>
+                    <td>512</td>
+                    <td>1024</td>
+                    <td>525,312</td>
+                    <td>ReLU</td>
+                    <td>Dropout(0.2) + BatchNorm</td>
+                </tr>
+                <tr>
+                    <td><strong>Hidden 2</strong></td>
+                    <td>1024</td>
+                    <td>2048</td>
+                    <td>2,099,200</td>
+                    <td>ReLU</td>
+                    <td>Dropout(0.2) + BatchNorm</td>
+                </tr>
+                <tr>
+                    <td><strong>Hidden 3</strong></td>
+                    <td>2048</td>
+                    <td>1024</td>
+                    <td>2,098,176</td>
+                    <td>ReLU</td>
+                    <td>Dropout(0.2) + BatchNorm</td>
+                </tr>
+                <tr>
+                    <td><strong>Output</strong></td>
+                    <td>1024</td>
+                    <td>784</td>
+                    <td>803,616</td>
+                    <td>Tanh</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="parameter-count">
+            <div class="parameter-title">Model Complexity Analysis:</div>
+            <div>
+                <strong>Total Parameters:</strong> 5,526,304 (≈ 5.5M)<br>
+                <strong>Computational Complexity:</strong> O(d₁d₂ + d₂d₃ + d₃d₄ + d₄d₅)<br>
+                <strong>Memory Footprint:</strong> ~22 MB (FP32)<br>
+                <strong>Forward Pass Operations:</strong> ~11.4 MFLOPs per sample
+            </div>
+        </div>
+    </div>
+</body>
+</html>
